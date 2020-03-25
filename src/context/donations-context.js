@@ -2,33 +2,44 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react'
 
 const DonationsState = createContext()
 const DonationsDispatch = createContext()
-const DONATION_SUBMITTED = 'DONATION_SUBMITTED'
+const DONATION_SUBMIT = 'DONATION_SUBMIT'
 const FORM_RESET = 'FORM_RESET'
 const LS_NAMESPACE = 'ac-donations'
-
-// TODO - temporary, should be getting from localstorage..
-const initialState = {
+const defaultState = {
   goal: 5000,
   gained: 0,
   progress: 0,
   donors: 0,
   remaining: 5000,
+  minDonation: 5,
+  over: 0,
+}
+
+/**
+ * Compute new state on each new donation
+ */
+function handleNewDonation(amt, state) {
+  const gained = parseInt(state.gained, 10) + parseInt(amt, 10)
+  const progress = 100 * (gained / parseInt(state.goal, 10))
+  const over = Math.max(gained - parseInt(state.goal, 10), 0)
+  return {
+    gained,
+    progress,
+    over,
+    donors: state.donors + 1,
+    remaining: state.goal - gained,
+  }
 }
 
 /**
  * Reducer function for app state
- *
- * @param   {Object}  state   current state of app
- * @param   {Object}  action  object describing updates
- *
- * @return  {Object}          new state of app
  */
 function donationsReducer(state, action) {
   switch (action.type) {
-    case DONATION_SUBMITTED:
-      return Object.assign({}, state, { foo: 'fa' })
+    case DONATION_SUBMIT:
+      return Object.assign({}, state, handleNewDonation(action.payload, state))
     case FORM_RESET:
-      return Object.assign(initialState)
+      return Object.assign(defaultState)
     default:
       return state
   }
@@ -37,18 +48,16 @@ function donationsReducer(state, action) {
 /**
  * Provider component for wraping children with Donations context
  * - get and set data in localstorage
- *
- * @param   {Array}  children  Any nested children
- *
- * @return  {Component}            [return description]
  */
 function DonationsProvider({ children, value }) {
-  const [state, dispatch] = useReducer(donationsReducer, initialState, () => {
+  const initialValue = Object.assign({}, defaultState, value)
+
+  const [state, dispatch] = useReducer(donationsReducer, initialValue, () => {
     const cache = localStorage.getItem(LS_NAMESPACE)
     try {
-      return cache ? JSON.parse(cache) : initialState
+      return cache ? JSON.parse(cache) : defaultState
     } catch (error) {
-      return initialState
+      return defaultState
     }
   })
 
@@ -58,16 +67,15 @@ function DonationsProvider({ children, value }) {
 
   return (
     <DonationsState.Provider value={state}>
-      <DonationsDispatch.Provider value={dispatch}>{children}</DonationsDispatch.Provider>
+      <DonationsDispatch.Provider value={dispatch}>
+        {children}
+      </DonationsDispatch.Provider>
     </DonationsState.Provider>
   )
 }
 
 /**
  * Custom hook which provides the reducer's state value
- *  - if context is underfined it means they didn't use provider
- *
- * @return  {Object}  the state represented in context
  */
 function useDonationsState() {
   const context = useContext(DonationsState)
@@ -78,23 +86,22 @@ function useDonationsState() {
 }
 
 /**
- * Custom hook provides dispatch for reducer
- *
- * @return  {Object}  the state represented in context
+ * Custom hook provides `dispatch` for components
  */
 function useDonationsDispatch() {
   const context = useContext(DonationsDispatch)
   if (context === undefined) {
-    throw new Error('useDonationsDispatch must be used within a DonationsProvider')
+    throw new Error(
+      'useDonationsDispatch must be used within a DonationsProvider'
+    )
   }
   return context
 }
 
 export {
-  initialState,
   DonationsProvider,
   useDonationsState,
   useDonationsDispatch,
-  DONATION_SUBMITTED,
+  DONATION_SUBMIT,
   FORM_RESET,
 }

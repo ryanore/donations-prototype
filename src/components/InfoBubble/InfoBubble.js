@@ -7,7 +7,9 @@ const defaultProps = {}
 
 const InfoBubble = () => {
   const { remaining } = useDonationsState()
-  return <div data-testid="info">still needed {remaining} to fund this project.</div>
+  return (
+    <div data-testid="info">still needed {remaining} to fund this project.</div>
+  )
 }
 
 InfoBubble.propTypes = propTypes
