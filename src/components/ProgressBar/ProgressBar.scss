@@ -1,0 +1,18 @@
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  background: blue;
+}
+
+.progressBar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: red;
+  display: block;
+  height: 100%;
+  transition: 0.5s;
+}

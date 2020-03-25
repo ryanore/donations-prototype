@@ -1,13 +1,29 @@
 import React from 'react'
 import { useDonations } from '../../context/donations-context'
 import { toCurrency } from '../../utils/number'
+import './InfoBubble.scss'
+
+const ProgressCarat = ({ percent = 0 }) => {
+  const stylesheet = {
+    left: `${percent}%`,
+  }
+  const fillStyles = {
+    transform: `translateX(${percent}%)`,
+  }
+
+  return <div style={stylesheet} className="progressCarat"></div>
+}
+
 const InfoBubble = () => {
   const { donationsState } = useDonations()
-  const { remaining } = donationsState
+  const { remaining, progress } = donationsState
   const dollars = toCurrency(remaining, true)
 
   return (
-    <div data-testid="info">{dollars} still needed to fund this project.</div>
+    <div className="infoBubble" data-testid="info">
+      <ProgressCarat percent={progress} />
+      <span>{dollars} still needed to fund this project.</span>
+    </div>
   )
 }
 

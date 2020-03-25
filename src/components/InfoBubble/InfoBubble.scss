@@ -1,0 +1,18 @@
+.infoBubble {
+  position: relative;
+  background: grey;
+  padding: 8px 15px;
+}
+
+.progressCarat {
+  position: absolute;
+  bottom: 0;
+  background-color: grey;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+  z-index: -1;
+  transition: 0.5s;
+}

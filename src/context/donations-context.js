@@ -21,7 +21,7 @@ export const defaultState = {
  */
 function handleNewDonation(amt, state) {
   const gained = parseFloat(state.gained, 10) + parseFloat(amt, 10)
-  const progress = 100 * (gained / parseFloat(state.goal, 10))
+  const progress = Math.floor(100 * (gained / parseFloat(state.goal, 10)))
   const over = Math.max(gained - parseFloat(state.goal, 10), 0)
   return {
     gained,

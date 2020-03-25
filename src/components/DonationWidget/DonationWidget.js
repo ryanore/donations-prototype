@@ -1,13 +1,16 @@
 import React from 'react'
+import ProgressBar from '../ProgressBar'
 import DonationForm from '../DonationForm'
 import { useDonations } from '../../context/donations-context'
+import './DonationWidget.scss'
 
 const DonationWidget = () => {
   const { donationsState } = useDonations()
-  const { donors } = donationsState
+  const { donors, progress } = donationsState
 
   return (
-    <div data-testid="widget">
+    <div data-testid="widget" className="donationWidget">
+      <ProgressBar percent={progress} />
       <h1>Only four days left to fund this project</h1>
       {donors >= 1 ? (
         <p>
