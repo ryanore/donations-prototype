@@ -1,18 +1,14 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
-import { useDonationsState } from '../../context/donations-context'
-
-const propTypes = {}
-const defaultProps = {}
-
+import { useDonations } from '../../context/donations-context'
+import { toCurrency } from '../../utils/number'
 const InfoBubble = () => {
-  const { remaining } = useDonationsState()
+  const { donationsState } = useDonations()
+  const { remaining } = donationsState
+  const dollars = toCurrency(remaining, true)
+
   return (
-    <div data-testid="info">still needed {remaining} to fund this project.</div>
+    <div data-testid="info">{dollars} still needed to fund this project.</div>
   )
 }
-
-InfoBubble.propTypes = propTypes
-InfoBubble.defaultProps = defaultProps
 
 export default InfoBubble

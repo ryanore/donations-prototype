@@ -15,7 +15,10 @@ const setup = (propArgs, context, re) => {
 }
 
 describe('InfoBubble Component', () => {
-  afterEach(cleanup)
+  beforeEach(() => {
+    cleanup()
+    localStorage.clear()
+  })
 
   it('renders', () => {
     const utils = setup()
@@ -24,7 +27,7 @@ describe('InfoBubble Component', () => {
   })
 
   it('renders remaining value from context', () => {
-    const utils = setup(null, { remaining: 5000 })
-    expect(utils.getByText(/5000/)).toBeInTheDocument()
+    const utils = setup(null, { remaining: 200 })
+    expect(utils.getByText(/200/)).toBeInTheDocument()
   })
 })

@@ -5,7 +5,8 @@ const DonationsDispatch = createContext()
 const DONATION_SUBMIT = 'DONATION_SUBMIT'
 const FORM_RESET = 'FORM_RESET'
 const LS_NAMESPACE = 'ac-donations'
-const defaultState = {
+
+export const defaultState = {
   goal: 5000,
   gained: 0,
   progress: 0,
@@ -16,12 +17,12 @@ const defaultState = {
 }
 
 /**
- * Compute new state on each new donation
+ * Helper to compute new state on each new donation
  */
 function handleNewDonation(amt, state) {
-  const gained = parseInt(state.gained, 10) + parseInt(amt, 10)
-  const progress = 100 * (gained / parseInt(state.goal, 10))
-  const over = Math.max(gained - parseInt(state.goal, 10), 0)
+  const gained = parseFloat(state.gained, 10) + parseFloat(amt, 10)
+  const progress = 100 * (gained / parseFloat(state.goal, 10))
+  const over = Math.max(gained - parseFloat(state.goal, 10), 0)
   return {
     gained,
     progress,
@@ -54,16 +55,17 @@ function DonationsProvider({ children, value }) {
 
   const [state, dispatch] = useReducer(donationsReducer, initialValue, () => {
     const cache = localStorage.getItem(LS_NAMESPACE)
+
     try {
-      return cache ? JSON.parse(cache) : defaultState
+      return cache ? JSON.parse(cache) : initialValue
     } catch (error) {
-      return defaultState
+      return initialValue
     }
   })
 
   useEffect(() => {
-    localStorage.setItem(LS_NAMESPACE, JSON.stringify(value))
-  }, [value])
+    localStorage.setItem(LS_NAMESPACE, JSON.stringify(state))
+  }, [state])
 
   return (
     <DonationsState.Provider value={state}>
@@ -75,33 +77,13 @@ function DonationsProvider({ children, value }) {
 }
 
 /**
- * Custom hook which provides the reducer's state value
+ * Custom Hook for accessing dispatch and state
  */
-function useDonationsState() {
-  const context = useContext(DonationsState)
-  if (context === undefined) {
-    throw new Error('useDonationsState must be used within a DonationsProvider')
+function useDonations() {
+  return {
+    donationsState: useContext(DonationsState),
+    donationsDispatch: useContext(DonationsDispatch),
   }
-  return context
 }
 
-/**
- * Custom hook provides `dispatch` for components
- */
-function useDonationsDispatch() {
-  const context = useContext(DonationsDispatch)
-  if (context === undefined) {
-    throw new Error(
-      'useDonationsDispatch must be used within a DonationsProvider'
-    )
-  }
-  return context
-}
-
-export {
-  DonationsProvider,
-  useDonationsState,
-  useDonationsDispatch,
-  DONATION_SUBMIT,
-  FORM_RESET,
-}
+export { DonationsProvider, useDonations, DONATION_SUBMIT, FORM_RESET }
