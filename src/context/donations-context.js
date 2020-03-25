@@ -1,15 +1,16 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer, useEffect } from 'react'
 
 const DonationsState = createContext()
 const DonationsDispatch = createContext()
 const DONATION_SUBMITTED = 'DONATION_SUBMITTED'
 const FORM_RESET = 'FORM_RESET'
+const LS_NAMESPACE = 'ac-donations'
 
 // TODO - temporary, should be getting from localstorage..
 const initialState = {
   goal: 5000,
   gained: 0,
-  progress: '0%',
+  progress: 0,
   donors: 0,
   remaining: 5000,
 }
@@ -35,13 +36,26 @@ function donationsReducer(state, action) {
 
 /**
  * Provider component for wraping children with Donations context
+ * - get and set data in localstorage
  *
  * @param   {Array}  children  Any nested children
  *
  * @return  {Component}            [return description]
  */
 function DonationsProvider({ children, value }) {
-  const [state, dispatch] = useReducer(donationsReducer, value || initialState)
+  const [state, dispatch] = useReducer(donationsReducer, initialState, () => {
+    const cache = localStorage.getItem(LS_NAMESPACE)
+    try {
+      return cache ? JSON.parse(cache) : initialState
+    } catch (error) {
+      return initialState
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem(LS_NAMESPACE, JSON.stringify(value))
+  }, [value])
+
   return (
     <DonationsState.Provider value={state}>
       <DonationsDispatch.Provider value={dispatch}>{children}</DonationsDispatch.Provider>
