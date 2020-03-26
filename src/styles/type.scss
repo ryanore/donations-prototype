@@ -1,5 +1,5 @@
-$headingFont: 'Poppins', 'Comic Sans MS';
-$bodyFont: 'IBM Plex Sans', 'Comic Sans MS';
+$headingFont: 'Poppins', 'Arial';
+$bodyFont: 'IBM Plex Sans', 'Arial';
 
 $font-size-base: 13px !default;
 
@@ -10,10 +10,16 @@ html {
   line-height: 1.4;
 }
 
-.h1 {
+.h1,
+.h2 {
   font-family: $headingFont;
   font-weight: bolder;
+}
+.h1 {
   font-size: 20px;
+}
+.h2 {
+  font-size: 15px;
 }
 
 button {

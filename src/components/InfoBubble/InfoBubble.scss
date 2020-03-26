@@ -1,6 +1,7 @@
-@import '~sharedStyles/variables';
+// @import '~sharedStyles/variables';
+@import '../../styles/variables';
 
-$background: lighten($infoColor, 38%);
+$background: lighten($infoColor, 35%);
 $border: lighten($infoColor, 36%);
 
 .infoBubble {
@@ -14,17 +15,15 @@ $border: lighten($infoColor, 36%);
 }
 
 .infoBubble-content {
-  background: $background;
   padding: 8px 15px;
   position: relative;
   color: $infoColor;
-  border: 1px solid $border;
+  background: $background;
 }
 
 .progressCarat {
   position: absolute;
   bottom: 0;
-  background: $background;
   width: 30px;
   height: 30px;
   overflow: hidden;
@@ -32,5 +31,5 @@ $border: lighten($infoColor, 36%);
   transform-origin: 0 0;
   z-index: -1;
   transition: 0.5s;
-  border: 1px solid $border;
+  background: $background;
 }

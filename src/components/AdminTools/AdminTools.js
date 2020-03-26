@@ -12,6 +12,7 @@ const AdminTools = () => {
     donationsDispatch({
       type: PROJECT_UPDATE,
       payload: {
+        projectName,
         goal: parseFloat(goal, 10),
       },
     })
@@ -20,8 +21,11 @@ const AdminTools = () => {
   return (
     <div className="adminTools">
       <form onSubmit={handleSubmit}>
-        <p>You can clear this project and start with a new goal</p>
-        <div>
+        <span className="h2">Admin</span>
+        <p>
+          You can clear this project and start with a new goal and project name.
+        </p>
+        <div className="form-group">
           <label htmlFor="newGoal">Project Goal</label>
           <input
             type="number"
@@ -31,7 +35,7 @@ const AdminTools = () => {
             onChange={(e) => setGoal(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="projectName">Project Name</label>
           <input
             name="projectName"

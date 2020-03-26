@@ -34,7 +34,12 @@ const DonationForm = () => {
           Give Now
         </button>
       </div>
-      {!valid && <p className="warning">${minDonation} minimum please</p>}
+
+      {!valid && (
+        <span role="alert" className="error">
+          ${minDonation} minimum please
+        </span>
+      )}
     </form>
   )
 }

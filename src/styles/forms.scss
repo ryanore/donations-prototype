@@ -1,0 +1,66 @@
+@import './variables';
+
+$inputPad: 0.5em 0.75em;
+
+form {
+  box-sizing: border-box;
+}
+
+input {
+  padding: $inputPad;
+  color: $inputColor;
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+    border: 1px solid darken($primaryColor, 5%);
+  }
+
+  &::placeholder {
+    color: lighten($inputColor, 20%);
+    font-style: italic;
+    font-weight: normal;
+  }
+}
+
+label {
+  padding: $inputPad;
+  width: 150px;
+  font-weight: bold;
+}
+
+.error {
+  color: $errorColor;
+  position: absolute;
+  padding-top: 5px;
+  display: inline-block;
+}
+
+.form-group.pill {
+  display: flex;
+  position: relative;
+  border: 1px solid $primaryColor;
+  border-radius: 5px;
+  overflow: hidden;
+
+  input {
+    width: 170px;
+    padding: 0.5em 0.75em;
+    text-indent: 10px;
+    font-size: 19px;
+    font-weight: bold;
+    border: 1px solid transparent;
+    color: $inputColor;
+
+    &:focus {
+      outline: none;
+      border-color: darken($primaryColor, 5%);
+    }
+  }
+
+  button[type='submit'] {
+    @extend button.primary;
+    width: 100px;
+    font-size: 15px;
+  }
+}
