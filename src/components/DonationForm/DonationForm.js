@@ -22,7 +22,7 @@ const DonationForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="content-section">
       <input
         title="donation"
         type="number"

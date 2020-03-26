@@ -7,10 +7,6 @@ const ProgressCarat = ({ percent = 0 }) => {
   const stylesheet = {
     left: `${percent}%`,
   }
-  const fillStyles = {
-    transform: `translateX(${percent}%)`,
-  }
-
   return <div style={stylesheet} className="progressCarat"></div>
 }
 
