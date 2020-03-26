@@ -18,31 +18,33 @@ const AdminTools = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="adminTools content-section">
-      <p>You can clear this project and start with a new goal</p>
-      <div>
-        <label htmlFor="newGoal">Project Goal</label>
-        <input
-          type="number"
-          min="1"
-          name="newGoal"
-          value={goal}
-          onChange={(e) => setGoal(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="projectName">Project Name</label>
-        <input
-          name="projectName"
-          value={projectName}
-          placeholder="e.g. The Good Foundation"
-          onChange={(e) => setProjectName(e.target.value)}
-        />
-      </div>
-      <button type="submit" className="btn-reset">
-        Reset Project
-      </button>
-    </form>
+    <div className="adminTools">
+      <form onSubmit={handleSubmit}>
+        <p>You can clear this project and start with a new goal</p>
+        <div>
+          <label htmlFor="newGoal">Project Goal</label>
+          <input
+            type="number"
+            min="1"
+            name="newGoal"
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="projectName">Project Name</label>
+          <input
+            name="projectName"
+            value={projectName}
+            placeholder="e.g. The Good Foundation"
+            onChange={(e) => setProjectName(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn-reset">
+          Reset Project
+        </button>
+      </form>
+    </div>
   )
 }
 

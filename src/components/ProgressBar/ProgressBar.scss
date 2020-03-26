@@ -1,17 +1,18 @@
+@import '~sharedStyles/variables';
+
 .progressBar {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 30px;
   width: 100%;
-  background: blue;
+  background: rgba($primaryColor, 0.3);
 }
 
 .progressBar-fill {
   position: absolute;
   top: 0;
   left: 0;
-  background: red;
+  background: $primaryColor;
   display: block;
   height: 100%;
   transition: 0.5s;

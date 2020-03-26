@@ -1,15 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=Poppins:wght@300;500&display=swap');
+@import './styles/normalize';
+@import './styles/variables';
+@import './styles/type';
 
 body {
   margin: 0;
-  background: #fafafa;
-  //   font-family: 'IBM Plex Sans', sans-serif;
-  font-family: 'Poppins', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background: #fcfcfc;
+  font-family: $bodyFont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }

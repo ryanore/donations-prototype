@@ -1,4 +1,47 @@
+@import '~sharedStyles/variables';
+@import '~sharedStyles/buttons';
+
 .a11y-hidden {
   visibility: hidden;
   position: absolute;
+}
+
+.donationForm {
+  box-sizing: border-box;
+  margin: 25px 0;
+
+  .form-group {
+    display: flex;
+    position: relative;
+    font-size: 19px;
+    font-weight: bold;
+    color: $inputColor;
+    border: 1px solid $primaryColor;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &:after {
+      content: '$';
+      padding: 8px;
+      display: block;
+      position: absolute;
+    }
+  }
+
+  input[title='donation'] {
+    width: 170px;
+    padding: 0.5em 0.75em;
+    text-indent: 10px;
+    border: 1px solid transparent;
+    &:focus {
+      outline: none;
+      border-color: darken($primaryColor, 5%);
+    }
+  }
+
+  button[type='submit'] {
+    @extend button.primary;
+    width: 100px;
+    font-size: 15px;
+  }
 }

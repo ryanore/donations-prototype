@@ -7,7 +7,11 @@ const ProgressCarat = ({ percent = 0 }) => {
     left: `${percent}%`,
     display: percent >= 100 ? 'none' : 'block',
   }
-  return <div style={stylesheet} className="progressCarat"></div>
+  return (
+    <div className="progressCarat-container">
+      <div style={stylesheet} className="progressCarat"></div>
+    </div>
+  )
 }
 
 ProgressCarat.propTypes = { percent: PropTypes.number }

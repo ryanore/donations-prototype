@@ -1,0 +1,14 @@
+@import '~sharedStyles/variables';
+
+button.primary {
+  background-color: $primaryColor;
+  color: $white;
+  border: 1px solid transparent;
+  font-weight: bolder;
+
+  &:hover,
+  &:focus {
+    background-color: darken($primaryColor, 10%);
+    outline: none;
+  }
+}

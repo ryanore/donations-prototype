@@ -22,17 +22,18 @@ const DonationForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="content-section">
-      <input
-        title="donation"
-        type="number"
-        onChange={handleChange}
-        value={value}
-      />
-      <button type="submit" disabled={!valid}>
-        Give Now
-      </button>
-
+    <form onSubmit={handleSubmit} className="donationForm">
+      <div className="form-group">
+        <input
+          title="donation"
+          type="number"
+          onChange={handleChange}
+          value={value}
+        />
+        <button type="submit" disabled={!valid}>
+          Give Now
+        </button>
+      </div>
       {!valid && <p className="warning">${minDonation} minimum please</p>}
     </form>
   )

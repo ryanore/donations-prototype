@@ -11,7 +11,7 @@ const DonationWidget = () => {
   return (
     <div data-testid="widget" className="donationWidget">
       <ProgressBar percent={progress} />
-      <h1>Only four days left to fund this project</h1>
+      <span className="h1">Only four days left to fund this project</span>
       {donors >= 1 ? (
         <p>
           Join the {donors} other donors who have already supported this

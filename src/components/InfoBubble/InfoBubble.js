@@ -10,21 +10,28 @@ const InfoBubble = () => {
 
   return (
     <div className="infoBubble" data-testid="info">
-      <ProgressCarat percent={progress} />
+      <div className="infoBubble-content">
+        <ProgressCarat percent={progress} />
 
-      {gained === goal && (
-        <span>This project met its goal of {toCurrency(goal, true)}!</span>
-      )}
-      {gained > goal && (
-        <span>
-          This project exceeded its goal by {toCurrency(gained - goal, true)}!
-        </span>
-      )}
-      {gained < goal && (
-        <span>
-          {toCurrency(goal - gained, true)} still needed to fund this project.
-        </span>
-      )}
+        {gained === goal && (
+          <span>
+            This project met its goal of{' '}
+            <strong>{toCurrency(goal, true)}</strong>!
+          </span>
+        )}
+        {gained > goal && (
+          <span>
+            This project exceeded its goal by{' '}
+            <strong>{toCurrency(gained - goal, true)}</strong>!
+          </span>
+        )}
+        {gained < goal && (
+          <span>
+            <strong>{toCurrency(goal - gained, true)}</strong> still needed to
+            fund this project.
+          </span>
+        )}
+      </div>
     </div>
   )
 }
