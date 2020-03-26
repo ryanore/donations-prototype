@@ -1,26 +1,64 @@
 import React from 'react'
 import ProgressBar from '../ProgressBar'
 import DonationForm from '../DonationForm'
-import { useDonations } from '../../context/donations-context'
+import { useDonations, CONFIRM_SUBMIT } from '../../context/donations-context'
 import './DonationWidget.scss'
 
+const IntroCopy = ({ donors }) => {
+  if (donors >= 1) {
+    return (
+      <p>
+        Join the <strong>{donors}</strong> other donors who have already
+        supported this project.
+      </p>
+    )
+  } else {
+    return <p>Be the first donor to support this project!</p>
+  }
+}
+
+const ThankYouCopy = ({ projectName, handleClick }) => {
+  console.log('Project ', projectName)
+
+  return (
+    <div>
+      <p>
+        Thank you
+        {projectName && (
+          <span>
+            , on behalf of <strong>{projectName}</strong>
+          </span>
+        )}
+        <br />
+        <button onClick={handleClick} className="primary">
+          OK!
+        </button>
+      </p>
+    </div>
+  )
+}
+
 const DonationWidget = () => {
-  const { donationsState } = useDonations()
-  const { donors, progress } = donationsState
+  const { donationsState, donationsDispatch } = useDonations()
+  const { donors, progress, projectName, submitted } = donationsState
+
+  const handleClick = () => donationsDispatch({ type: CONFIRM_SUBMIT })
 
   return (
     <div data-testid="widget" className="donationWidget">
       <ProgressBar percent={progress} />
       <span className="h1">Only four days left to fund this project</span>
-      {donors >= 1 ? (
-        <p>
-          Join the {donors} other donors who have already supported this
-          project.
-        </p>
-      ) : (
-        <p>Be the first donor to support this project!</p>
+
+      {!submitted && (
+        <div>
+          <IntroCopy donors={donors} />
+          <DonationForm />
+        </div>
       )}
-      <DonationForm />
+
+      {submitted && (
+        <ThankYouCopy projectName={projectName} handleClick={handleClick} />
+      )}
     </div>
   )
 }

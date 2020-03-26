@@ -4,16 +4,17 @@ const DonationsDispatch = createContext()
 const DONATION_SUBMIT = 'DONATION_SUBMIT'
 const PROJECT_RESET = 'PROJECT_RESET'
 const PROJECT_UPDATE = 'PROJECT_UPDATE'
+const CONFIRM_SUBMIT = 'CONFIRM_SUBMIT'
 const LS_NAMESPACE = 'ac-donations'
 
 export const defaultState = {
+  projectName: 'The Good Foundation',
   goal: 5000,
   gained: 0,
   minDonation: 5,
   donors: 0,
   progress: 0,
-  // remaining: 5000,
-  // over: 0,
+  submitted: false,
 }
 
 /**
@@ -26,6 +27,7 @@ function handleNewDonation(amt, state) {
     gained,
     progress,
     donors: state.donors + 1,
+    submitted: true,
   }
 }
 
@@ -35,10 +37,12 @@ function handleNewDonation(amt, state) {
 function handleProjectReset(data) {
   const { projectName, goal } = data
   const newGoal = parseFloat(goal, 10)
+  alert(projectName)
   return {
-    projectName,
+    projectName: projectName || 'The Project',
     gained: 0,
     goal: newGoal,
+    submitted: false,
   }
 }
 
@@ -51,6 +55,8 @@ function donationsReducer(state, action) {
       return Object.assign({}, state, handleNewDonation(action.payload, state))
     case PROJECT_UPDATE:
       return Object.assign({}, defaultState, handleProjectReset(action.payload))
+    case CONFIRM_SUBMIT:
+      return Object.assign({}, state, { submitted: false })
     default:
       return state
   }
@@ -101,4 +107,5 @@ export {
   DONATION_SUBMIT,
   PROJECT_RESET,
   PROJECT_UPDATE,
+  CONFIRM_SUBMIT,
 }
