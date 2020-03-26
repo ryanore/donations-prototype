@@ -18,8 +18,6 @@ const IntroCopy = ({ donors }) => {
 }
 
 const ThankYouCopy = ({ projectName, handleClick }) => {
-  console.log('Project ', projectName)
-
   return (
     <div>
       <p>
@@ -47,7 +45,9 @@ const DonationWidget = () => {
   return (
     <div data-testid="widget" className="donationWidget">
       <ProgressBar percent={progress} />
-      <span className="h1">Only four days left to fund this project</span>
+      <span className="h1">
+        Only four days left to fund <strong>{projectName}</strong>
+      </span>
 
       {!submitted && (
         <div>

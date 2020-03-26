@@ -16,6 +16,8 @@ const AdminTools = () => {
         goal: parseFloat(goal, 10),
       },
     })
+    setProjectName('')
+    setGoal(0)
   }
 
   return (

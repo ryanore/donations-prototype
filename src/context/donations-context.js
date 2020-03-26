@@ -37,7 +37,6 @@ function handleNewDonation(amt, state) {
 function handleProjectReset(data) {
   const { projectName, goal } = data
   const newGoal = parseFloat(goal, 10)
-  alert(projectName)
   return {
     projectName: projectName || 'The Project',
     gained: 0,
