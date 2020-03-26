@@ -8,7 +8,5 @@ export function toCurrency(num, dollar = false) {
   }
   const out = Number(num).toLocaleString('en', options)
 
-  console.log('out ', out)
-
   return dollar ? `$${out}` : out
 }

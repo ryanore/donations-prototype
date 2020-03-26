@@ -1,24 +1,30 @@
 import React from 'react'
 import { useDonations } from '../../context/donations-context'
 import { toCurrency } from '../../utils/number'
+import ProgressCarat from './ProgressCarat'
 import './InfoBubble.scss'
-
-const ProgressCarat = ({ percent = 0 }) => {
-  const stylesheet = {
-    left: `${percent}%`,
-  }
-  return <div style={stylesheet} className="progressCarat"></div>
-}
 
 const InfoBubble = () => {
   const { donationsState } = useDonations()
-  const { remaining, progress } = donationsState
-  const dollars = toCurrency(remaining, true)
+  const { gained, goal, progress } = donationsState
 
   return (
     <div className="infoBubble" data-testid="info">
       <ProgressCarat percent={progress} />
-      <span>{dollars} still needed to fund this project.</span>
+
+      {gained === goal && (
+        <span>This project met its goal of {toCurrency(goal, true)}!</span>
+      )}
+      {gained > goal && (
+        <span>
+          This project exceeded its goal by {toCurrency(gained - goal, true)}!
+        </span>
+      )}
+      {gained < goal && (
+        <span>
+          {toCurrency(goal - gained, true)} still needed to fund this project.
+        </span>
+      )}
     </div>
   )
 }

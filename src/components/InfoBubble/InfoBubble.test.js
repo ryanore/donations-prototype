@@ -26,8 +26,24 @@ describe('InfoBubble Component', () => {
     expect(component).toBeInTheDocument()
   })
 
-  it('renders remaining value from context', () => {
-    const utils = setup(null, { remaining: 200 })
-    expect(utils.getByText(/200/)).toBeInTheDocument()
+  it('moves the carat to the correct position', () => {
+    const utils = setup(null, { progress: 50 })
+    const component = utils.getByTestId('info').firstChild
+    expect(component).toHaveStyle('left: 50%')
+  })
+
+  it('displays correct message when goal is exceeded', () => {
+    const utils = setup(null, { goal: 10, gained: 20 })
+    expect(utils.getByText(/exceeded/)).toBeInTheDocument()
+    expect(utils.getByText(/\$10/)).toBeInTheDocument()
+  })
+  it('displays correct message when goal is met', () => {
+    const utils = setup(null, { goal: 10, gained: 10 })
+    expect(utils.getByText(/met/)).toBeInTheDocument()
+  })
+  it('displays correct message when goal is not met', () => {
+    const utils = setup(null, { goal: 10, gained: 5 })
+    expect(utils.getByText(/needed/)).toBeInTheDocument()
+    expect(utils.getByText(/\$5/)).toBeInTheDocument()
   })
 })

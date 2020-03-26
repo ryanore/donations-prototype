@@ -1,20 +1,16 @@
 import React from 'react'
 import { render, cleanup } from '@testing-library/react'
 import { DonationsProvider } from '../../context/donations-context'
-import InfoBubble from './InfoBubble'
+import ProgressBar from './ProgressBar'
 
 const defaults = {}
 
-const setup = (propArgs, context, re) => {
+const setup = (propArgs) => {
   const props = { ...defaults, ...propArgs }
-  return render(
-    <DonationsProvider value={context}>
-      <InfoBubble {...props} />
-    </DonationsProvider>
-  )
+  return render(<ProgressBar {...props} />)
 }
 
-describe('InfoBubble Component', () => {
+describe('ProgressBar Component', () => {
   beforeEach(() => {
     cleanup()
     localStorage.clear()
@@ -22,12 +18,12 @@ describe('InfoBubble Component', () => {
 
   it('renders', () => {
     const utils = setup()
-    const component = utils.getByTestId('info')
+    const component = utils.getByRole('progressbar')
     expect(component).toBeInTheDocument()
   })
 
-  it('renders remaining value from context', () => {
-    const utils = setup(null, { remaining: 200 })
-    expect(utils.getByText(/200/)).toBeInTheDocument()
+  it('renders the correct initialwidth', () => {
+    const component = setup({ percent: 50 }).getByRole('progressbar').firstChild
+    expect(component).toHaveStyle('width: 50%')
   })
 })

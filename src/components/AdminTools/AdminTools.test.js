@@ -1,6 +1,10 @@
 import React from 'react'
 import { render, cleanup } from '@testing-library/react'
-import { DonationsProvider } from '../../context/donations-context'
+import {
+  DonationsProvider,
+  useDonations,
+  PROJECT_UPDATE,
+} from '../../context/donations-context'
 import AdminTools from './AdminTools'
 
 const defaults = {}
@@ -20,7 +24,7 @@ describe('InfoBubble Component', () => {
     localStorage.clear()
   })
 
-  it('renders', () => {
+  it.only('renders', () => {
     expect(true).toBe(true)
   })
 })

@@ -9,8 +9,19 @@ const setup = (propArgs, re) => {
   return render(<App {...props} />)
 }
 
+describe('INTEGRATION', () => {
+  beforeEach(() => {
+    cleanup()
+    localStorage.clear()
+  })
+})
+
 describe('App Component', () => {
-  afterEach(cleanup)
+  beforeEach(() => {
+    cleanup()
+    localStorage.clear()
+  })
+
   it('renders', () => {
     const utils = setup()
     expect(utils.getByTestId('app-root')).toBeInTheDocument()

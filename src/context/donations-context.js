@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-
 const DonationsState = createContext()
 const DonationsDispatch = createContext()
 const DONATION_SUBMIT = 'DONATION_SUBMIT'
@@ -10,11 +9,11 @@ const LS_NAMESPACE = 'ac-donations'
 export const defaultState = {
   goal: 5000,
   gained: 0,
-  progress: 0,
-  donors: 0,
-  remaining: 5000,
   minDonation: 5,
-  over: 0,
+  donors: 0,
+  progress: 0,
+  // remaining: 5000,
+  // over: 0,
 }
 
 /**
@@ -23,20 +22,15 @@ export const defaultState = {
 function handleNewDonation(amt, state) {
   const gained = parseFloat(state.gained, 10) + parseFloat(amt, 10)
   const progress = Math.floor(100 * (gained / parseFloat(state.goal, 10)))
-  const over = Math.max(gained - parseFloat(state.goal, 10), 0)
   return {
     gained,
     progress,
-    over,
     donors: state.donors + 1,
-    remaining: state.goal - gained,
   }
 }
 
 /**
  * Helper for reseting the project
- * Probably want to update the projectName so we can use for other projects,
- * but it's not in the design
  */
 function handleProjectReset(data) {
   const { projectName, goal } = data
@@ -44,7 +38,6 @@ function handleProjectReset(data) {
   return {
     projectName,
     gained: 0,
-    remaining: newGoal,
     goal: newGoal,
   }
 }
