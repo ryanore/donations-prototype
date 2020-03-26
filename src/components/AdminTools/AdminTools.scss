@@ -4,8 +4,6 @@
 @import '../../styles/containers';
 @import '../../styles/forms';
 
-$inputPad: 0.5em 0.75em;
-
 .adminTools {
   @extend .card;
   border-top: 15px solid #ccc;
@@ -21,7 +19,6 @@ $inputPad: 0.5em 0.75em;
       @extend button.primary;
       float: right;
       margin-top: 5px;
-      padding: $inputPad;
     }
   }
 }

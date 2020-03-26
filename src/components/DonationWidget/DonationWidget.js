@@ -28,8 +28,9 @@ const ThankYouCopy = ({ projectName, handleClick }) => {
           </span>
         )}
         <br />
+        <br />
         <button onClick={handleClick} className="primary">
-          OK!
+          Woohoo!
         </button>
       </p>
     </div>

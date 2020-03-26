@@ -60,6 +60,7 @@ label {
 
   button[type='submit'] {
     @extend button.primary;
+    padding: 0;
     width: 100px;
     font-size: 15px;
   }

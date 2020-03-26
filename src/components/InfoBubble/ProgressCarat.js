@@ -9,7 +9,11 @@ const ProgressCarat = ({ percent = 0 }) => {
   }
   return (
     <div className="progressCarat-container">
-      <div style={stylesheet} className="progressCarat"></div>
+      <div
+        data-testid="progress-carat"
+        style={stylesheet}
+        className="progressCarat"
+      ></div>
     </div>
   )
 }

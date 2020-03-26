@@ -1,6 +1,8 @@
 @import './variables';
 
 button.primary {
+  cursor: pointer;
+  padding: $inputPad;
   background-color: $primaryColor;
   color: $white;
   border: 1px solid transparent;

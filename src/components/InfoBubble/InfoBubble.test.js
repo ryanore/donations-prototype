@@ -28,7 +28,7 @@ describe('InfoBubble Component', () => {
 
   it('moves the carat to the correct position', () => {
     const utils = setup(null, { progress: 50 })
-    const component = utils.getByTestId('info').firstChild
+    const component = utils.getByTestId('progress-carat')
     expect(component).toHaveStyle('left: 50%')
   })
 
