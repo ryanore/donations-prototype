@@ -35,12 +35,12 @@ function handleNewDonation(amt, state) {
  * Helper for reseting the project
  */
 function handleProjectReset(data) {
-  const { projectName, goal } = data
-  const newGoal = parseFloat(goal, 10)
+  const { projectName, goal, minDonation } = data
   return {
+    minDonation: parseFloat(minDonation),
+    goal: parseFloat(goal),
     projectName: projectName || 'The Project',
     gained: 0,
-    goal: newGoal,
     submitted: false,
   }
 }
@@ -77,8 +77,11 @@ function DonationsProvider({ children, value }) {
     }
   })
 
+  // pop out anything we don't want to persist, then put in ls
   useEffect(() => {
-    localStorage.setItem(LS_NAMESPACE, JSON.stringify(state))
+    const cache = Object.assign({}, state)
+    delete cache.submitted
+    localStorage.setItem(LS_NAMESPACE, JSON.stringify(cache))
   }, [state])
 
   return (
@@ -103,6 +106,7 @@ function useDonations() {
 export {
   DonationsProvider,
   useDonations,
+  LS_NAMESPACE,
   DONATION_SUBMIT,
   PROJECT_RESET,
   PROJECT_UPDATE,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './DonationForm.scss'
 import { useDonations, DONATION_SUBMIT } from '../../context/donations-context'
 
@@ -10,7 +10,7 @@ const DonationForm = () => {
 
   const handleChange = (e) => {
     setValue(e.target.value)
-    setValid(e.target.value >= 5)
+    setValid(e.target.value >= minDonation)
   }
 
   const handleSubmit = (e) => {
@@ -21,8 +21,16 @@ const DonationForm = () => {
     })
   }
 
+  useEffect(() => {
+    setValue(minDonation)
+  }, [minDonation])
+
   return (
-    <form onSubmit={handleSubmit} className="donationForm">
+    <form
+      onSubmit={handleSubmit}
+      className="donationForm"
+      data-testid="donationForm"
+    >
       <div className="form-group">
         <input
           title="donation"

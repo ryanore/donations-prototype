@@ -5,6 +5,7 @@ import DonationWidget from '../DonationWidget'
 import InfoBubble from '../InfoBubble'
 import './App.scss'
 
+// assuming there is some authentication and role based managment
 const isAdmin = true
 
 const App = () => {

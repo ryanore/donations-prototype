@@ -22,3 +22,17 @@
     }
   }
 }
+
+.link {
+  cursor: pointer;
+  color: $primaryColor;
+  font-weight: bolder;
+  &:hover {
+    color: $inputColor;
+  }
+}
+.closeLink {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
