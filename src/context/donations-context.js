@@ -30,19 +30,6 @@ function handleNewDonation(amt, state) {
 }
 
 /**
- * Helper for reseting the project
- */
-function handleProjectReset(data) {
-  const { projectName, goal } = data
-  const newGoal = parseFloat(goal, 10)
-  return {
-    projectName,
-    gained: 0,
-    goal: newGoal,
-  }
-}
-
-/**
  * Reducer function for app state
  */
 function donationsReducer(state, action) {
@@ -50,7 +37,7 @@ function donationsReducer(state, action) {
     case DONATION_SUBMIT:
       return Object.assign({}, state, handleNewDonation(action.payload, state))
     case PROJECT_UPDATE:
-      return Object.assign({}, defaultState, handleProjectReset(action.payload))
+      return Object.assign({}, defaultState)
     default:
       return state
   }
