@@ -5,19 +5,26 @@ import { useDonations, CONFIRM_SUBMIT } from '../../context/donations-context'
 import './DonationWidget.scss'
 
 const IntroCopy = ({ donors, progress }) => {
-  if (donors >= 1) {
-    return (
-      <p>
-        {progress >= 51 && progress < 100 && (
-          <span>We're more than halfway there! </span>
-        )}
-        Join the <strong>{donors}</strong> other donors who have already
-        supported this project.{' '}
-      </p>
-    )
-  } else {
-    return <p>Be the first donor to support this project!</p>
-  }
+  return (
+    <p>
+      {progress > 50 && progress < 100 && (
+        <span>We're more than halfway there! </span>
+      )}
+      {donors > 1 && (
+        <span>
+          Join the <strong>{donors}</strong> other donors who have already
+          supported this project.
+        </span>
+      )}
+      {donors === 1 && (
+        <span>
+          Join the <strong>{donors}</strong> other donor who has already
+          supported this project.
+        </span>
+      )}
+      {donors < 1 && <span>Be the first donor to support this project!</span>}
+    </p>
+  )
 }
 
 const ThankYouCopy = ({ projectName, handleClick }) => {
