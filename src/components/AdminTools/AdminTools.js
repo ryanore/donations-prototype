@@ -4,10 +4,11 @@ import './AdminTools.scss'
 
 const AdminTools = ({ isAdmin }) => {
   const [valid, setValid] = useState()
+  const [error, setError] = useState(false)
   const [open, setOpen] = useState(false)
-  const [goal, setGoal] = useState(5000)
-  const [minDonation, setMinDonation] = useState(5)
-  const [projectName, setProjectName] = useState('This Project')
+  const [goal, setGoal] = useState(null)
+  const [minDonation, setMinDonation] = useState(null)
+  const [projectName, setProjectName] = useState(null)
   const { donationsDispatch } = useDonations()
 
   useEffect(() => {
@@ -27,9 +28,12 @@ const AdminTools = ({ isAdmin }) => {
           goal: parseFloat(goal, 10),
         },
       })
-      setProjectName('this Project')
-      setGoal(5000)
-      setMinDonation(5)
+      setError(false)
+      setProjectName('')
+      setGoal(null)
+      setMinDonation(null)
+    } else {
+      setError(true)
     }
   }
 
@@ -85,7 +89,7 @@ const AdminTools = ({ isAdmin }) => {
             Reset Project
           </button>
         </form>
-        {!valid && <span className="error">Please fill out all fields.</span>}
+        {error && <span className="error">Please fill out all fields.</span>}
       </div>
     )
   }
