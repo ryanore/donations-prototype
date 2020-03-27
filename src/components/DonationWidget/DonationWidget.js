@@ -4,12 +4,15 @@ import DonationForm from '../DonationForm'
 import { useDonations, CONFIRM_SUBMIT } from '../../context/donations-context'
 import './DonationWidget.scss'
 
-const IntroCopy = ({ donors }) => {
+const IntroCopy = ({ donors, progress }) => {
   if (donors >= 1) {
     return (
       <p>
+        {progress >= 51 && progress < 100 && (
+          <span>We're more than halfway there! </span>
+        )}
         Join the <strong>{donors}</strong> other donors who have already
-        supported this project.
+        supported this project.{' '}
       </p>
     )
   } else {
@@ -47,12 +50,12 @@ const DonationWidget = () => {
     <div data-testid="widget" className="donationWidget">
       <ProgressBar percent={progress} />
       <span className="h1">
-        Only four days left to fund <strong>{projectName}</strong>
+        Only four days left to fund <strong>{projectName}</strong>.
       </span>
 
       {!submitted && (
         <div>
-          <IntroCopy donors={donors} />
+          <IntroCopy donors={donors} progress={progress} />
           <DonationForm />
         </div>
       )}
