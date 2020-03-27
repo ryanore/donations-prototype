@@ -17,7 +17,7 @@ const DonationWidget = () => {
         )}
         {donors > 1 && (
           <span>
-            Join the <strong>{donors}</strong> other donor who have already
+            Join the <strong>{donors}</strong> other donors who have already
             supported this project.
           </span>
         )}
