@@ -6,9 +6,9 @@ const AdminTools = ({ isAdmin }) => {
   const [valid, setValid] = useState()
   const [error, setError] = useState(false)
   const [open, setOpen] = useState(false)
-  const [goal, setGoal] = useState(null)
-  const [minDonation, setMinDonation] = useState(null)
-  const [projectName, setProjectName] = useState(null)
+  const [goal, setGoal] = useState('')
+  const [minDonation, setMinDonation] = useState('')
+  const [projectName, setProjectName] = useState('')
   const { donationsDispatch } = useDonations()
 
   useEffect(() => {
@@ -20,6 +20,8 @@ const AdminTools = ({ isAdmin }) => {
     e.preventDefault()
 
     if (valid) {
+      console.log('goal ', goal)
+
       donationsDispatch({
         type: PROJECT_UPDATE,
         payload: {
@@ -30,8 +32,8 @@ const AdminTools = ({ isAdmin }) => {
       })
       setError(false)
       setProjectName('')
-      setGoal(null)
-      setMinDonation(null)
+      setGoal('')
+      setMinDonation('')
     } else {
       setError(true)
     }
@@ -80,6 +82,7 @@ const AdminTools = ({ isAdmin }) => {
             <label htmlFor="minDonation">Minimum Donation</label>
             <input
               type="number"
+              min="1"
               name="minDonation"
               value={minDonation}
               onChange={(e) => setMinDonation(e.target.value)}
